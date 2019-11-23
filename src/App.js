@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ColorBox from './ColorBox'
 
-function App() {
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="text-center">
+        <button onClick={() => myStore.dispatch({type: 'RANDOMIZE'})}>Randomize!</button>
+        <button onClick={() => myStore.dispatch({type: 'ADD_BOX'})}>Add Box</button>
+        <button onClick={() => myStore.dispatch({type: 'REMOVE_BOX'})}>Remove Box</button>
+        <div className="d-flex justify-content-center">
+          {props.boxes.map((box, idx) => (
+            <ColorBox {...box} key={idx} toggleLock={() => myStore.dispatch({
+              type: 'TOGGLE_BOX',
+              boxIndex: idx
+            })}/>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
